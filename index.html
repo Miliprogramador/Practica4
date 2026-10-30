@@ -51,12 +51,12 @@ h1{font-size:clamp(32px,5vw,56px);line-height:1.15;margin:12px 0 18px;letter-spa
 <img alt="Diagrama simplificado del receptor UART: espera, inicio, recepción de ocho bits y fin con dato válido." loading="lazy" src="maquina_estados_uart_rx.png"/>
 <figcaption>Figura 2. Etapas del módulo receptor <code>uart_rx</code>.</figcaption>
 </figure>
-<p>El receptor espera a que <code>UART_RX</code> cambie a 0 para detectar el inicio de la trama. Después cuenta los ciclos del reloj, captura los ocho bits y activa <code>data_valid</code> durante un ciclo para indicar que el byte está listo.</p>
+<p>El receptor espera a que <code>UART_RX</code> cambie a 0 para detectar el inicio Después cuenta los ciclos del reloj, captura los ocho bits y activa <code>data_valid</code> durante un ciclo para indicar que el byte está listo.</p>
 <figure class="diagram">
 <img alt="Diagrama simplificado del transmisor UART: espera, carga del dato, transmisión serial y fin." loading="lazy" src="maquina_estados_uart_tx.png"/>
 <figcaption>Figura 3. Etapas del módulo transmisor <code>uart_tx</code>.</figcaption>
 </figure>
-<p>Cuando recibe <code>tx_start</code>, el transmisor carga una trama con un bit de inicio, ocho bits de datos y un bit de paro. Envía un bit a la vez por <code>UART_TX</code> y libera la señal <code>busy</code> al terminar.</p>
+<p>Cuando recibe <code>tx_start</code>, el transmisor carga con un bit de inicio, ocho bits de datos y un bit de paro. Envía un bit a la vez por <code>UART_TX</code> y libera la señal <code>busy</code> al terminar.</p>
 <h3>Conexiones y programación del ESP32</h3>
 <p>Programamos el ESP32 desde Arduino IDE como puente USB–UART. Conectamos las líneas de forma cruzada, es decir, la salida TX de cada equipo llega a la entrada RX del otro:</p>
 <table class="signal-table">
