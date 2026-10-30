@@ -46,7 +46,7 @@ h1{font-size:clamp(32px,5vw,56px);line-height:1.15;margin:12px 0 18px;letter-spa
 </figure>
 <p>MATLAB envía el dato al puerto COM del ESP32. Este lo pasa a <code>uart_rx</code> en la FPGA, donde se procesa y se entrega a <code>uart_tx</code> para regresar el resultado por el mismo puente.</p>
 <h3>Máquinas de estados UART</h3>
-<p>Para representar el funcionamiento de los módulos, elaboramos los siguientes diagramas con las etapas principales de recepción y transmisión. Son esquemas funcionales del comportamiento del código, ya que los módulos no declaran estados mediante un registro de FSM.</p>
+<p>Para representar el funcionamiento de los módulos, elaboramos los siguientes diagramas con las etapas principales de recepción y transmisión. Son esquemas funcionales del comportamiento del código.</p>
 <figure class="diagram">
 <img alt="Diagrama simplificado del receptor UART: espera, inicio, recepción de ocho bits y fin con dato válido." loading="lazy" src="maquina_estados_uart_rx.png"/>
 <figcaption>Figura 2. Etapas del módulo receptor <code>uart_rx</code>.</figcaption>
