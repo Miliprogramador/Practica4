@@ -64,7 +64,6 @@ h1{font-size:clamp(32px,5vw,56px);line-height:1.15;margin:12px 0 18px;letter-spa
 <tbody>
 <tr><td>GPIO17 (TX)</td><td>UART_RX (entrada)</td></tr>
 <tr><td>GPIO16 (RX)</td><td>UART_TX (salida)</td></tr>
-<tr><td>GND</td><td>GND (tierra común)</td></tr>
 </tbody>
 </table>
 <p>La computadora se comunica con el ESP32 mediante USB. El programa del ESP32 reenvía los bytes en ambos sentidos, sin aplicar la suma, ya que esa operación se realiza dentro de la FPGA.</p>
@@ -74,7 +73,23 @@ h1{font-size:clamp(32px,5vw,56px);line-height:1.15;margin:12px 0 18px;letter-spa
 <div class="equation">\[N=\frac{f_{\text{clk}}}{B}=\frac{50\,000\,000}{9600}\approx 5208\]</div>
 <p>Finalmente, en el módulo superior usamos <code>tx_data &lt;= rx_data + 8'd1</code> cuando llega un byte válido y el transmisor está libre. Como el dato es de ocho bits, si llega 255 el valor calculado vuelve a 0. Con MATLAB podemos enviar el dato y comparar la respuesta recibida con la esperada.</p>
 </section>
-<section id="4"><h2><span>04</span> Casos de Estudio o Pruebas</h2><p class="pending">Sección pendiente de completar en el reporte original.</p></section>
+<section id="4">
+<h2><span>04</span> Casos de Estudio o Pruebas</h2>
+<p>Para comprobar el funcionamiento del sistema UART, se plantearon pruebas de comunicación entre MATLAB y la FPGA DE10-Lite utilizando el ESP32 como puente USB–UART. En estas pruebas, MATLAB envía distintos valores de 8 bits para verificar que la FPGA pueda recibirlos, sumarles una unidad y transmitir el resultado de regreso.</p>
+<p>La comunicación se configuró a 9600 baudios y se utilizaron las conexiones cruzadas TX y RX entre el ESP32 y la FPGA.</p>
+<table class="signal-table">
+<caption style="caption-side:top;text-align:left;font-size:14px;color:var(--muted);margin-bottom:8px">Tabla 1. Valores de prueba</caption>
+<thead><tr><th>Dato enviado</th><th>Respuesta esperada</th></tr></thead>
+<tbody>
+<tr><td>Agregar valor</td><td>Agregar valor</td></tr>
+<tr><td>Agregar valor</td><td>Agregar valor</td></tr>
+<tr><td>Agregar valor</td><td>Agregar valor</td></tr>
+<tr><td>Agregar valor</td><td>Agregar valor</td></tr>
+<tr><td>Agregar valor</td><td>Agregar valor</td></tr>
+</tbody>
+</table>
+<p>También se contempla una prueba del límite de los ocho bits: al sumar una unidad al valor máximo representable (255), el resultado esperado es 0. Los valores de la tabla se completarán con los datos registrados en el laboratorio.</p>
+</section>
 <section id="5"><h2><span>05</span> Análisis de Resultados</h2><p class="pending">Sección pendiente de completar en el reporte original.</p></section>
 <section id="6"><h2><span>06</span> Conclusiones</h2><p>En esta práctica diseñamos un sistema de comunicación serial bidireccional entre una computadora y la FPGA DE10-Lite utilizando un ESP32 como puente USB–UART. El sistema integra los módulos transmisor y receptor UART con una entidad superior que procesa el byte recibido y transmite una respuesta incrementada en una unidad. También se estableció una velocidad de 9600 baudios y el formato 8N1 para la comunicación.</p><p>La integración de MATLAB, el ESP32 y la FPGA permite comprender el intercambio de datos entre hardware y software, así como la importancia de configurar correctamente la velocidad de transmisión y las conexiones de las señales TX y RX. Para completar la validación del sistema es necesario realizar las pruebas de comunicación y comprobar que los datos recibidos correspondan con las respuestas esperadas.</p></section><section id="bibliografia"><h2>Bibliografía</h2><ol class="references"><li>M. M. R. Mano and M. D. Ciletti, <em>Digital Design</em>, 6th ed. Pearson, 2018.</li>
 <li>J. F. Wakerly, <em>Digital Design: Principles and Practices</em>, 5th ed. Pearson, 2018.</li>
