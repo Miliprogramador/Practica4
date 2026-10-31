@@ -14,6 +14,8 @@
 .hero-inner{position:relative;max-width:920px}.eyebrow{font-size:13px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:#ffc293}.institution{font-size:20px;font-weight:650;margin:8px 0 0}.university{font-size:15px;opacity:.8;margin:0 0 30px}.hero-line{height:2px;width:160px;margin:24px auto;background:var(--brand)}
 h1{font-size:clamp(32px,5vw,56px);line-height:1.15;margin:12px 0 18px;letter-spacing:-.035em}.subtitle{font-size:clamp(19px,2.5vw,26px);max-width:750px;margin:0 auto 35px;line-height:1.45}.authors{display:flex;gap:45px;justify-content:center;flex-wrap:wrap;margin-top:30px;font-size:16px}.authors strong{display:block}.date{margin-top:30px;color:#dfebed;font-size:15px}.place{font-size:14px;opacity:.72;margin-top:20px}
 .layout{max-width:1180px;margin:auto;display:grid;grid-template-columns:225px minmax(0,1fr);gap:30px;padding:42px 24px 90px}.sidebar{position:sticky;top:20px;align-self:start;padding:20px;background:#fff;border:1px solid var(--line);border-radius:14px}.sidebar p{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.13em;font-weight:700;margin:0 0 10px}.sidebar a{display:block;font-size:14px;text-decoration:none;color:#334357;padding:7px 0;line-height:1.35}.sidebar a:hover{color:var(--brand)}main{min-width:0}.content{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:clamp(22px,5vw,65px);box-shadow:0 8px 30px rgba(20,40,55,.035)}section{margin:0 0 54px;scroll-margin-top:30px}section:last-child{margin-bottom:0}h2{font-size:clamp(23px,3vw,29px);line-height:1.25;letter-spacing:-.02em;border-bottom:1px solid var(--line);padding-bottom:15px;margin:0 0 22px}h2 span{color:var(--brand);font-size:14px;vertical-align:middle;margin-right:12px}p{margin:0 0 19px;text-align:justify}code{background:#f0f3f6;color:#985023;border-radius:5px;padding:2px 6px;font:0.89em ui-monospace,SFMono-Regular,Consolas,monospace;overflow-wrap:anywhere}.equation{overflow-x:auto;text-align:center;padding:20px 6px;margin:15px 0}.pending{color:#778493;font-style:italic}ol.references{padding-left:27px}ol.references li{padding-left:8px;margin-bottom:14px;overflow-wrap:anywhere}footer{text-align:center;padding:20px;color:var(--muted);font-size:13px}
+.video-wrap{position:relative;width:100%;aspect-ratio:16/9;margin:16px 0 12px;background:#101e2e;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 @media(max-width:850px){.layout{display:block;padding:20px 12px 40px}.sidebar{position:static;margin-bottom:16px}.sidebar nav{display:flex;flex-wrap:wrap;gap:0 15px}.content{padding:25px 20px}.hero{min-height:500px}.authors{gap:12px 30px}}
 @media print{body{background:white}.hero{min-height:90vh;-webkit-print-color-adjust:exact;print-color-adjust:exact}.layout{display:block;padding:0}.sidebar{display:none}.content{box-shadow:none;border:0}section{break-inside:avoid}}
 
@@ -75,22 +77,31 @@ h1{font-size:clamp(32px,5vw,56px);line-height:1.15;margin:12px 0 18px;letter-spa
 </section>
 <section id="4">
 <h2><span>04</span> Casos de Estudio o Pruebas</h2>
-<p>Para comprobar el funcionamiento del sistema UART, se plantearon pruebas de comunicación entre MATLAB y la FPGA DE10-Lite utilizando el ESP32 como puente USB–UART. En estas pruebas, MATLAB envía distintos valores de 8 bits para verificar que la FPGA pueda recibirlos, sumarles una unidad y transmitir el resultado de regreso.</p>
-<p>La comunicación se configuró a 9600 baudios y se utilizaron las conexiones cruzadas TX y RX entre el ESP32 y la FPGA.</p>
+<p>Para comprobar la comunicación UART entre MATLAB y la FPGA DE10-Lite, utilizamos el ESP32 como puente USB–UART. Enviamos valores de 8 bits desde MATLAB y observamos la respuesta de la FPGA después de sumar una unidad a cada dato recibido.</p>
+<p>Las pruebas se realizaron con la comunicación configurada a 9600 baudios y las conexiones TX/RX cruzadas.</p>
 <table class="signal-table">
-<caption style="caption-side:top;text-align:left;font-size:14px;color:var(--muted);margin-bottom:8px">Tabla 1. Valores de prueba</caption>
-<thead><tr><th>Dato enviado</th><th>Respuesta esperada</th></tr></thead>
+<caption style="caption-side:top;text-align:left;font-size:14px;color:var(--muted);margin-bottom:8px">Tabla 1. Resultados obtenidos en el laboratorio</caption>
+<thead><tr><th>Dato enviado</th><th>Resultado obtenido</th></tr></thead>
 <tbody>
-<tr><td>Agregar valor</td><td>Agregar valor</td></tr>
-<tr><td>Agregar valor</td><td>Agregar valor</td></tr>
-<tr><td>Agregar valor</td><td>Agregar valor</td></tr>
-<tr><td>Agregar valor</td><td>Agregar valor</td></tr>
-<tr><td>Agregar valor</td><td>Agregar valor</td></tr>
+<tr><td>2</td><td>3</td></tr>
+<tr><td>5</td><td>6</td></tr>
+<tr><td>25</td><td>26</td></tr>
+<tr><td>255</td><td>Desbordamiento (overflow): 0 en 8 bits</td></tr>
 </tbody>
 </table>
-<p>También se contempla una prueba del límite de los ocho bits: al sumar una unidad al valor máximo representable (255), el resultado esperado es 0. Los valores de la tabla se completarán con los datos registrados en el laboratorio.</p>
+<p>En el caso de 255, la suma produce 256, que no cabe en un byte de 8 bits. Por ello, el valor almacenado vuelve a 0. Esta prueba permite identificar el límite de representación del dato.</p>
 </section>
-<section id="5"><h2><span>05</span> Análisis de Resultados</h2><p class="pending">Sección pendiente de completar en el reporte original.</p></section>
+<section id="5">
+<h2><span>05</span> Análisis de Resultados</h2>
+<p>Los resultados de laboratorio muestran que la FPGA recibió los valores enviados desde MATLAB y devolvió el dato incrementado en una unidad: 2 pasó a 3, 5 a 6 y 25 a 26. Esto es consistente con el procesamiento <code>rx_data + 8'd1</code> implementado en Verilog y con la comunicación de regreso mediante el ESP32.</p>
+<p>Con el valor 255 se presentó un desbordamiento, porque la operación 255 + 1 excede el máximo que puede representar un dato de 8 bits sin signo. El resultado de 8 bits es 0, como establece el funcionamiento del módulo.</p>
+<h3>Video de resultados: operación A elevada a 5/2</h3>
+<p>Como evidencia adicional, se incluye el video de la prueba de la operación <strong>\(A^{5/2}\)</strong>. Esta operación se documenta por separado de los casos anteriores, que corresponden al incremento de una unidad. Los valores específicos de esta prueba pueden consultarse directamente en la grabación.</p>
+<div class="video-wrap">
+<iframe src="https://www.youtube-nocookie.com/embed/M-FYdOa0AQU" title="Resultados de la prueba A elevada a 5/2" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+<p class="note">Evidencia en video: <a href="https://youtu.be/M-FYdOa0AQU" target="_blank" rel="noopener noreferrer">Ver resultados de A elevada a 5/2 en YouTube</a>.</p>
+</section>
 <section id="6"><h2><span>06</span> Conclusiones</h2><p>En esta práctica diseñamos un sistema de comunicación serial bidireccional entre una computadora y la FPGA DE10-Lite utilizando un ESP32 como puente USB–UART. El sistema integra los módulos transmisor y receptor UART con una entidad superior que procesa el byte recibido y transmite una respuesta incrementada en una unidad. También se estableció una velocidad de 9600 baudios y el formato 8N1 para la comunicación.</p><p>La integración de MATLAB, el ESP32 y la FPGA permite comprender el intercambio de datos entre hardware y software, así como la importancia de configurar correctamente la velocidad de transmisión y las conexiones de las señales TX y RX. Para completar la validación del sistema es necesario realizar las pruebas de comunicación y comprobar que los datos recibidos correspondan con las respuestas esperadas.</p></section><section id="bibliografia"><h2>Bibliografía</h2><ol class="references"><li>M. M. R. Mano and M. D. Ciletti, <em>Digital Design</em>, 6th ed. Pearson, 2018.</li>
 <li>J. F. Wakerly, <em>Digital Design: Principles and Practices</em>, 5th ed. Pearson, 2018.</li>
 <li>P. P. Chu, <em>FPGA Prototyping by VHDL Examples: Xilinx Spartan-3 Version</em>. Wiley, 2008.</li>
