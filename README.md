@@ -57,9 +57,8 @@ La prueba de 255 permite observar el límite del procesamiento con datos de ocho
 
 ## Reporte y evidencia
 
-- **[Ver el reporte en GitHub Pages](https://miliprogamador.github.io/Practica4/)**
+- **[Ver el reporte en GitHub Pages](https://miliprogramador.github.io/Practica4/)**
 - **[Ver el video de resultados en YouTube (A elevado a 5/2)](https://youtu.be/M-FYdOa0AQU)**
-- **[Consultar el repositorio de GitHub](https://github.com/Miliprogamador/Practica4)**
 
 ## Integrantes
 
