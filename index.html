@@ -96,7 +96,7 @@ h1{font-size:clamp(32px,5vw,56px);line-height:1.15;margin:12px 0 18px;letter-spa
 <p>Los resultados de laboratorio muestran que la FPGA recibió los valores enviados desde MATLAB y devolvió el dato incrementado en una unidad: 2 pasó a 3, 5 a 6 y 25 a 26. Esto es consistente con el procesamiento <code>rx_data + 8'd1</code> implementado en Verilog y con la comunicación de regreso mediante el ESP32.</p>
 <p>Con el valor 255 se presentó un desbordamiento, porque la operación 255 + 1 excede el máximo que puede representar un dato de 8 bits sin signo. El resultado de 8 bits es 0, como establece el funcionamiento del módulo.</p>
 <h3>Video de resultados: operación A elevada a 5/2</h3>
-<p>Como evidencia adicional, se incluye el video de la prueba de la operación <strong>\(A^{5/2}\)</strong>.</p>
+<p>Como evidencia adicional, se incluye el video de la prueba de la operación <strong>\(A^{5/2}\)</strong>.
 <div class="video-wrap">
 <iframe src="https://www.youtube-nocookie.com/embed/M-FYdOa0AQU" title="Resultados de la prueba A elevada a 5/2" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 </div>
